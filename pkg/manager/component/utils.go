@@ -32,8 +32,7 @@ import (
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/klog"
 	"k8s.io/kubernetes/cmd/kubeadm/app/util/apiclient"
-	deploymentutil "k8s.io/kubernetes/pkg/kubectl/util/deployment"
-
+	deploymentutil "k8s.io/kubernetes/pkg/controller/deployment/util"
 	"yunion.io/x/pkg/util/reflectutils"
 	"yunion.io/x/structarg"
 
