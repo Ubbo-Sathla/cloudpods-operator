@@ -15,8 +15,8 @@ require (
 	k8s.io/api v0.25.2
 	k8s.io/apiextensions-apiserver v0.25.0
 	k8s.io/apimachinery v0.25.2
-	k8s.io/client-go v9.0.0+incompatible
-	k8s.io/kubernetes v0.0.0-00010101000000-000000000000
+	k8s.io/client-go v0.25.2
+	k8s.io/kubernetes v1.25.2
 	yunion.io/x/jsonutils v1.0.1-0.20220819091305-3bab322ab4fd
 	yunion.io/x/log v1.0.0
 	yunion.io/x/onecloud v0.0.0-20220825062712-7f244f9d36c7
@@ -36,7 +36,6 @@ require (
 	github.com/beevik/etree v1.1.0 // indirect
 	github.com/coredns/coredns v1.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
-	github.com/cyphar/filepath-securejoin v0.2.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.8.0 // indirect
 	github.com/evanphx/json-patch v4.12.0+incompatible // indirect
@@ -80,7 +79,6 @@ require (
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
-	github.com/opencontainers/runc v1.0.2 // indirect
 	github.com/rs/xid v1.2.1 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
@@ -129,7 +127,6 @@ require (
 
 replace (
 	github.com/Sirupsen/logrus v1.4.2 => github.com/sirupsen/logrus v1.4.2
-	github.com/go-logr/logr => github.com/go-logr/logr v0.4.0
 	github.com/googleapis/gnostic => github.com/googleapis/gnostic v0.4.0
 	github.com/jaypipes/ghw => github.com/zexi/ghw v0.9.1
 	github.com/ugorji/go => github.com/ugorji/go v0.0.0-20181204163529-d75b2dcb6bc8
@@ -137,7 +134,7 @@ replace (
 	k8s.io/api => k8s.io/api v0.25.2
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.25.2
 	k8s.io/apimachinery => k8s.io/apimachinery v0.25.2
-	k8s.io/apiserver => k8s.io/apiserver v0.0.0-20190620085212-47dc9a115b18
+	k8s.io/apiserver => k8s.io/apiserver v0.25.2
 	k8s.io/cli-runtime => k8s.io/cli-runtime v0.0.0-20190620085706-2090e6d8f84c
 	k8s.io/client-go => k8s.io/client-go v0.25.2
 	k8s.io/cloud-provider => k8s.io/cloud-provider v0.0.0-20190620090043-8301c0bda1f0
@@ -154,7 +151,7 @@ replace (
 	k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.0.0-20190620085912-4acac5405ec6
 	k8s.io/kubectl => k8s.io/kubectl v0.25.2
 	k8s.io/kubelet => k8s.io/kubelet v0.0.0-20190620085838-f1cb295a73c9
-	k8s.io/kubernetes => k8s.io/kubernetes v1.23.8
+	k8s.io/kubernetes => k8s.io/kubernetes v1.25.2
 	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.0.0-20190620090156-2138f2c9de18
 	k8s.io/metrics => k8s.io/metrics v0.0.0-20190620085625-3b22d835f165
 	k8s.io/mount-utils => k8s.io/mount-utils v0.25.2

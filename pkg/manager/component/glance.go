@@ -131,7 +131,7 @@ func (m *glanceManager) setS3Config(oc *v1alpha1.OnecloudCluster) error {
 		return nil
 	}
 
-	sec, err := m.kubeCli.CoreV1().Secrets(constants.OnecloudMinioNamespace).Get(constants.OnecloudMinioSecret, metav1.GetOptions{})
+	sec, err := m.kubeCli.CoreV1().Secrets(constants.OnecloudMinioNamespace).Get(context.Background(), constants.OnecloudMinioSecret, metav1.GetOptions{})
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			return err
@@ -140,7 +140,7 @@ func (m *glanceManager) setS3Config(oc *v1alpha1.OnecloudCluster) error {
 		return fmt.Errorf("namespace %s not found", constants.OnecloudMinioNamespace)
 	}
 
-	svc, err := m.kubeCli.CoreV1().Services(constants.OnecloudMinioNamespace).Get(constants.OnecloudMinioSvc, metav1.GetOptions{})
+	svc, err := m.kubeCli.CoreV1().Services(constants.OnecloudMinioNamespace).Get(context.Background(), constants.OnecloudMinioSvc, metav1.GetOptions{})
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			return err

@@ -35,7 +35,8 @@ var (
 
 // NewCertificateAuthority creates new certificate and private key for the certificate authority
 func NewCertificateAuthority(config *certutil.Config) (*x509.Certificate, crypto.Signer, error) {
-	key, err := NewPrivateKey()
+
+	key, err := NewPrivateKey(x509.RSA)
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "unable to create private key")
 	}
@@ -50,7 +51,7 @@ func NewCertificateAuthority(config *certutil.Config) (*x509.Certificate, crypto
 
 // NewCertAndKey creates new certificate and key by passing the certificate authority certificate and key
 func NewCertAndKey(caCert *x509.Certificate, caKey crypto.Signer, config *certutil.Config) (*x509.Certificate, crypto.Signer, error) {
-	key, err := NewPrivateKey()
+	key, err := NewPrivateKey(x509.RSA)
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "unable to create private key")
 	}

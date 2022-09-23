@@ -18,24 +18,22 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"math/rand"
-	"net/http"
-	_ "net/http/pprof"
-	"os"
-	"time"
-
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	kubeinformers "k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/kubernetes/fake"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/leaderelection"
 	"k8s.io/client-go/tools/leaderelection/resourcelock"
 	"k8s.io/client-go/tools/record"
 	"k8s.io/klog"
-
+	"math/rand"
+	"net/http"
+	_ "net/http/pprof"
+	"os"
+	"time"
 	"yunion.io/x/onecloud-operator/pkg/client/clientset/versioned"
 	informers "yunion.io/x/onecloud-operator/pkg/client/informers/externalversions"
 	"yunion.io/x/onecloud-operator/pkg/controller"
@@ -129,18 +127,12 @@ func main() {
 	kubeInformerFactory = kubeinformers.NewSharedInformerFactoryWithOptions(kubeCli, resyncDuration, kubeOptions...)
 
 	dynamicInformerFactory := dynamicinformer.NewDynamicSharedInformerFactory(dynamicCli, resyncDuration)
+	c := &fake.Clientset{}
 
-	rl := resourcelock.EndpointsLock{
-		EndpointsMeta: metav1.ObjectMeta{
-			Namespace: ns,
-			Name:      "onecloud-controller-manager",
-		},
-		Client: kubeCli.CoreV1(),
-		LockConfig: resourcelock.ResourceLockConfig{
-			Identity:      hostName,
-			EventRecorder: &record.FakeRecorder{},
-		},
-	}
+	rl, _ := resourcelock.New("endpoints", ns, "onecloud-controller-manager", kubeCli.CoreV1(), c.CoordinationV1(), resourcelock.ResourceLockConfig{
+		Identity:      hostName,
+		EventRecorder: &record.FakeRecorder{},
+	})
 
 	if err := k8sutil2.InitClusterVersion(kubeCli); err != nil {
 		klog.Fatalf("NewClusterVersion: %v", err)
@@ -173,7 +165,7 @@ func main() {
 		}
 		go wait.Forever(func() {
 			leaderelection.RunOrDie(controllerCtx, leaderelection.LeaderElectionConfig{
-				Lock:          &rl,
+				Lock:          rl,
 				LeaseDuration: leaseDuration,
 				RenewDeadline: renewDuration,
 				RetryPeriod:   retryPeriod,
