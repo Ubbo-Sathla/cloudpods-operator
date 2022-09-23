@@ -104,7 +104,7 @@ func NewController(
 	ingInformer := dynamicInformerFactory.ForResource(cv.GetIngressGVR())
 
 	dsInformer := kubeInformerFactory.Apps().V1().DaemonSets()
-	cronInformer := kubeInformerFactory.Batch().V1beta1().CronJobs()
+	cronInformer := kubeInformerFactory.Batch().V1().CronJobs()
 
 	ocControl := controller.NewClusterControl(cli, ocInformer.Lister(), recorder)
 	deployControl := controller.NewDeploymentControl(kubeCli, deployInformer.Lister(), recorder)
@@ -256,7 +256,7 @@ func (c *Controller) enqueueCluster(obj interface{}) {
 }
 
 func (c *Controller) InitCRDResource() error {
-	err := k8sutil.CreateOrUpdateCRD(c.kubeExtCli, crds.OnecloudClusterCRD)
+	err := k8sutil.CreateOrUpdateCRD(c.kubeExtCli, crds.OnecloudClusterCRDv1)
 	if err != nil {
 		return fmt.Errorf("failed to create CRD: %v", err)
 	}

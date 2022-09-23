@@ -27,8 +27,7 @@ var (
 			Name: api.OnecloudClusterCRDName,
 		},
 		Spec: apiextensionsv1.CustomResourceDefinitionSpec{
-			Group:    api.SchemeGroupVersion.Group,
-			Versions: []apiextensionsv1.CustomResourceDefinitionVersion{},
+			Group: api.SchemeGroupVersion.Group,
 
 			Scope: apiextensionsv1.NamespaceScoped,
 			Names: apiextensionsv1.CustomResourceDefinitionNames{
@@ -36,6 +35,28 @@ var (
 				Kind:       api.OnecloudClusterResourceKind,
 				ShortNames: []string{"onecloud", "oc"},
 			},
+			Versions: []apiextensionsv1.CustomResourceDefinitionVersion{apiextensionsv1.CustomResourceDefinitionVersion{
+				Name:    "v1alpha1",
+				Served:  true,
+				Storage: true,
+				Schema: &apiextensionsv1.CustomResourceValidation{OpenAPIV3Schema: &apiextensionsv1.JSONSchemaProps{
+					Properties: map[string]apiextensionsv1.JSONSchemaProps{
+						"spec": {
+							Properties: map[string]apiextensionsv1.JSONSchemaProps{
+								"mysql": {
+									Properties: map[string]apiextensionsv1.JSONSchemaProps{
+										"host":     {Type: "string", Nullable: false},
+										"password": {Type: "string", Nullable: false},
+									},
+									Type: "object",
+								},
+							},
+							Type: "object",
+						},
+					},
+					Type: "object",
+				}},
+			}},
 		},
 	}
 )
